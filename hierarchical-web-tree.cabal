@@ -1,0 +1,48 @@
+name:            hierarchical-web-tree
+version:         0.1.0.0
+license:         BSD3
+license-file:    LICENSE
+author:          Croitor Alexandr <placinta@gmail.com>
+maintainer:      Croitor Alexandr <placinta@gmail.com>
+synopsis:        Happstack hierarchical tree web app.
+description:     Web app for management of a simple hierarchical tree using Happstack.
+category:        Web
+cabal-version:   >= 1.8
+build-type:      Simple
+homepage:        http://github.com/placintac/hierarchical-web-tree.git
+
+extra-source-files:
+    README.md
+data-files:
+    static/css/*.css
+    static/css/*.min.css
+    static/js/*.js
+    static/js/*.min.js
+    static/fonts/glyphiconshalflings-regular.eot
+    static/fonts/glyphiconshalflings-regular.otf
+    static/fonts/glyphiconshalflings-regular.svg
+    static/fonts/glyphiconshalflings-regular.ttf
+    static/fonts/glyphiconshalflings-regular.woff
+
+executable hierarchical-web-tree
+  main-is:           Main.hs
+  hs-source-dirs:     Web
+  build-depends:     base >= 3 && < 5,
+                     blaze-html >= 0.6,
+                     blaze-markup >= 0.5,
+                     esqueleto >= 1.2,
+                     happstack-foundation >= 0.4,
+                     happstack-server >= 7.3,
+                     persistent >= 1.2,
+                     persistent-sqlite > 1.2,
+                     persistent-template > 1.2,
+                     monad-logger >= 0.3,
+                     mtl >= 2.1, 
+                     resourcet >= 0.4.7,
+                     resource-pool >= 0.1,
+                     template-haskell >= 2.8,
+                     transformers >= 0.3
+                     
+source-repository head
+  type:     git
+  location: git://github.com/placintac/hierarchical-web-tree.git

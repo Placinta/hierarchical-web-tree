@@ -26,10 +26,13 @@ data-files:
 
 executable hierarchical-web-tree
   main-is:           Main.hs
-  hs-source-dirs:     Web
+  hs-source-dirs:    Web
+  other-modules: Paths_hierarchical_web_tree
+  
   build-depends:     base >= 3 && < 5,
                      blaze-html >= 0.6,
                      blaze-markup >= 0.5,
+                     directory >= 1.2, 
                      esqueleto >= 1.2,
                      happstack-foundation >= 0.4,
                      happstack-server >= 7.3,

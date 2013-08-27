@@ -4,6 +4,8 @@
 {-# OPTIONS_GHC -w -fno-warn-unused-imports -fno-warn-type-defaults #-}
 module TreeController(runApp) where
 
+import qualified Paths_hierarchical_web_tree as P
+
 import Control.Monad
 import Control.Monad.Reader
 import Control.Monad.Trans.Resource
@@ -11,6 +13,7 @@ import Control.Monad.Logger
 import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 import Data.Char (toLower)
+import System.Directory
 
 import Happstack.Server (nullConf, simpleHTTP, toResponse, ok, dir, path, serveDirectory, Browsing(..),
   FromReqURI(..), Method(GET, POST), method, ServerPart, ServerPartT, Response)
@@ -30,6 +33,9 @@ connectionCount = 2
 runApp :: IO ()
 runApp = 
   withSqlitePool "myhaskdb.db" connectionCount $ \pool -> do
+    dataDir <- P.getDataDir
+    setCurrentDirectory dataDir
+    print $ "Data dir set to " ++ dataDir
     runDB pool $ do
         setupDB
         deleteFromTreeTable
@@ -41,7 +47,7 @@ appRouter =
   msum [ 
     dir "add" $ path $ \pid -> insertNewNode pid,
     dir "delete" $ path $ \nid -> deleteSelectedNodeAndChildren nid,
-    dir "static" $ serveDirectory EnableBrowsing  ["index.html"] "../static",
+    dir "static" $ serveDirectory EnableBrowsing  ["index.html"] "./static",
     homepage
     ] 
 
